@@ -1,16 +1,16 @@
 /**
- * 
+ *
  */
 package models;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import play.data.validation.Constraints;
 /**
  * <p>
  * Ticket
  * </p>
- * 
+ *
  * @author Mark Crowley
  *
  */
@@ -27,10 +27,14 @@ public class Ticket {
 		tickets.add(new Ticket(5L, "Desc 5", "Req 5"));
 		tickets.add(new Ticket(6L, "Desc 6", "Req 6"));
 	}
+
+    @Constraints.Required
 	public Long id;
 
+    @Constraints.Required
 	public String description;
 
+    @Constraints.Required
 	public String requester;
 
 	public Ticket() {
