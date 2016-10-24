@@ -1,0 +1,21 @@
+@(tickets: List[Ticket]) @main("Tickets") {
+<h2>All tickets</h2>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Description</th>
+			<th>Requester</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for(ticket <- tickets) {
+		<tr>
+			<td><a href="@routes.Tickets.details(ticket.id)">@ticket.id</a></td>
+			<td>@ticket.description</td>
+			<td>@ticket.requester</td>
+		</tr>
+		}
+	</tbody>
+</table>
+}
