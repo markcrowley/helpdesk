@@ -37,7 +37,13 @@ public class Tickets extends Controller {
 	}
 
 	public Result details(Long id) {
-		return TODO;
+		final Ticket ticket = Ticket.findById(id);
+		if (null == ticket){
+			return notFound(String.format("Ticket #%s does not exist.", id));
+		}
+		Form<Ticket> ticketForm = formFactory.form(Ticket.class);
+		ticketForm.fill(ticket);
+		return ok(details.render(ticketForm));
 	}
 
 	public Result save() {
