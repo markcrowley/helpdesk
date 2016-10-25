@@ -6,6 +6,8 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 import play.data.validation.Constraints;
+import play.data.validation.ValidationError;
+
 /**
  * <p>
  * Ticket
@@ -28,13 +30,13 @@ public class Ticket {
 		tickets.add(new Ticket(6L, "Desc 6", "Req 6"));
 	}
 
-    @Constraints.Required
+	@Constraints.Required
 	public Long id;
 
-    @Constraints.Required
+	@Constraints.Required
 	public String description;
 
-    @Constraints.Required
+	@Constraints.Required
 	public String requester;
 
 	public Ticket() {
@@ -77,6 +79,28 @@ public class Ticket {
 	public void save() {
 		tickets.remove(findById(this.id));
 		tickets.add(this);
+	}
+
+	/**
+	 * Validates Form<Ticket>.
+	 * 
+	 * @return Null if valid, or a List[ValidationError] if problems found.
+	 */
+	public List<ValidationError> validate() {
+		List<ValidationError> errors = new ArrayList<>();
+		System.out.println("**Validate**");
+		if (null == id || 0 >= id.longValue()) {
+			errors.add(new ValidationError("id", "Id must be a positive number"));
+		}
+
+		if (null == description || 0 == description.length()) {
+			errors.add(new ValidationError("description", "No description was given"));
+		}
+
+		if (null == requester || 0 == requester.length()) {
+			errors.add(new ValidationError("requester", "No requester was given"));
+		}
+		return errors.isEmpty() ? null : errors;
 	}
 
 	public String toString() {

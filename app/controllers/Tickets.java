@@ -14,6 +14,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.tickets.list;
 import views.html.tickets.details;
+
 /**
  * <p>
  * Tickets
@@ -23,7 +24,8 @@ import views.html.tickets.details;
  */
 public class Tickets extends Controller {
 
-	@Inject FormFactory formFactory;
+	@Inject
+	FormFactory formFactory;
 
 	public Result list() {
 		List<Ticket> tickets = Ticket.findAll();
@@ -40,8 +42,14 @@ public class Tickets extends Controller {
 
 	public Result save() {
 		Form<Ticket> boundForm = formFactory.form(Ticket.class).bindFromRequest();
-		Ticket ticket = boundForm.get();
-		ticket.save();
-		return ok(String.format("Saved product %s", ticket));
+		if (boundForm.hasErrors()) {
+			flash("error", "Please correct errors above.");
+			return badRequest(details.render(boundForm));
+		} else {
+			Ticket ticket = boundForm.get();
+			ticket.save();
+			flash("success", "Ticket created: " + ticket);
+			return redirect(routes.Tickets.list());
+		}
 	}
 }

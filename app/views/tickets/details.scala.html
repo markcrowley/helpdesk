@@ -5,50 +5,34 @@
 @main("Ticket") {
 	<div class="container">
 	  <div class="well">
-	    @form(action = routes.Tickets.save(), 'class -> "form-horizontal") {
+		@form(action = routes.Tickets.save(), 'class -> "form-horizontal") {
 		  <fieldset>
-    <!-- Header -->
-    <div id="legend">
-      <legend>Ticket</legend>
-    </div>
-    <!-- Id -->
-    @text(ticketForm("id"),
-          label = "Id",
-          placeholder = "Id",
-          help = "Please enter the Id. (required)")
-    <!-- Description -->
-    @text(ticketForm("description"),
-	     label = "Description",
-	     placeholder = "Description",
-	     help = "Please enter the description. (required)")
-	<!-- Requester -->
-    @text(ticketForm("requester"),
-		label = "Requester",
-		placeholder = "Requester",
-    	help = "Please enter the requester. (required)")
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <button id="submit" type="submit" value="Submit" class="btn btn-primary">Submit</button>
-        <button id="cancel" class="btn cancel">Cancel</button>
-      </div>
-    </div>
-
-	    }
+		    <!-- Header -->
+		    <div id="legend">
+		      <legend>Ticket</legend>
+		    </div>
+		    <!-- Id -->
+		    @text(ticketForm("id"),
+		          label = "Id",
+		          placeholder = "Id",
+		          help = "Please enter the Id. (required)")
+		    <!-- Description -->
+		    @text(ticketForm("description"),
+			     label = "Description",
+			     placeholder = "Description",
+			     help = "Please enter the description. (required)")
+			<!-- Requester -->
+		    @text(ticketForm("requester"),
+				label = "Requester",
+				placeholder = "Requester",
+		    	help = "Please enter the requester. (required)")
+		    <div class="form-group">
+		      <div class="col-sm-offset-2 col-sm-10">
+		        <button id="submit" type="submit" value="Submit" class="btn btn-primary">Submit</button>
+		        <button id="cancel" class="btn cancel">Cancel</button>
+		      </div>
+		    </div>
+		}
 	  </div>
-
-	  @if(flash.containsKey("success")) {
-	  <div class="well">
-	    <div id="success-message" class="text-success">
-	      @flash.get("success")
-	    </div>
-	  </div>
-	  }
-	  @if(flash.containsKey("error")) {
-	  <div class="well">
-	    <div id="error-message" class="text-danger">
-	      @flash.get("error")
-	    </div>
-	   </div>
-	  }
 	</div>
 }
