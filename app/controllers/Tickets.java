@@ -49,7 +49,7 @@ public class Tickets extends Controller {
 	public Result save() {
 		Form<Ticket> boundForm = formFactory.form(Ticket.class).bindFromRequest();
 		if (boundForm.hasErrors()) {
-			flash("error", "Please correct errors above.");
+			flash("error", "Please correct errors below");
 			return badRequest(details.render(boundForm));
 		} else {
 			Ticket ticket = boundForm.get();

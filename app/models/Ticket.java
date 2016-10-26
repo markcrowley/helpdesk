@@ -5,6 +5,8 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import play.Logger;
 import play.data.validation.Constraints;
 import play.data.validation.ValidationError;
 
@@ -88,7 +90,7 @@ public class Ticket {
 	 */
 	public List<ValidationError> validate() {
 		List<ValidationError> errors = new ArrayList<>();
-		System.out.println("**Validate**");
+		Logger.debug("**Validate**");
 		if (null == id || 0 >= id.longValue()) {
 			errors.add(new ValidationError("id", "Id must be a positive number"));
 		}
