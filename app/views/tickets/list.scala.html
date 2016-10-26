@@ -1,6 +1,18 @@
 @(tickets: List[Ticket]) @main("Tickets") {
 <div class="container">
 <h2>All tickets</h2>
+<script>
+	function del(urlToDelete) {
+		$.ajax({
+			url : urlToDelete,
+			type : 'DELETE',
+			success : function(results) {
+				// Refresh the page
+				location.reload();
+			}
+		});
+	}
+</script>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -15,6 +27,14 @@
 			<td><a href="@routes.Tickets.details(ticket.id)">@ticket.id</a></td>
 			<td>@ticket.description</td>
 			<td>@ticket.requester</td>
+			<td>
+				<a href="@routes.Tickets.details(ticket.id)">
+					<i class="glyphicon glyphicon-pencil"></i>
+				</a>
+				<a onclick="del('@routes.Tickets.delete(ticket.id)')">
+					<i class="glyphicon glyphicon-trash"></i>
+				</a>
+			</td>
 		</tr>
 		}
 	</tbody>

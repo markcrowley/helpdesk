@@ -3,11 +3,11 @@
 # ~~~~
 
 # Tickets
-GET 	/tickets/ 							controllers.Tickets.list()
-GET 	/tickets/new 						controllers.Tickets.newTicket()
-GET 	/tickets/:id 						controllers.Tickets.details(id: Long)
-POST 	/tickets/ 							controllers.Tickets.save()
-
+GET 	/tickets/ 					controllers.Tickets.list()
+GET 	/tickets/new 				controllers.Tickets.newTicket()
+GET 	/tickets/:id 				controllers.Tickets.details(id: Long)
+POST 	/tickets/ 					controllers.Tickets.save()
+DELETE  /tickets/:id 				controllers.Tickets.delete(id: Long)
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code

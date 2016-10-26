@@ -38,8 +38,8 @@ public class Tickets extends Controller {
 
 	public Result details(Long id) {
 		final Ticket ticket = Ticket.findById(id);
-		if (null == ticket){
-			return notFound(String.format("Ticket #%s does not exist.", id));
+		if (null == ticket) {
+			return notFound(String.format("Ticket #%d does not exist", id));
 		}
 		Form<Ticket> ticketForm = formFactory.form(Ticket.class);
 		ticketForm.fill(ticket);
@@ -57,5 +57,14 @@ public class Tickets extends Controller {
 			flash("success", "Ticket created: " + ticket);
 			return redirect(routes.Tickets.list());
 		}
+	}
+
+	public Result delete(Long id) {
+		final Ticket ticket = Ticket.findById(id);
+		if (null == ticket) {
+			return notFound(String.format("Ticket #%d does not exists", id));
+		}
+		Ticket.remove(ticket);
+		return redirect(routes.Tickets.list());
 	}
 }
