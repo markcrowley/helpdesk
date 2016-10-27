@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
+
+import models.Ticket;
+
 import org.junit.*;
 
 import play.mvc.*;
@@ -36,10 +39,9 @@ public class ApplicationTest {
 
     @Test
     public void renderTemplate() {
-        Content html = views.html.index.render("Your new application is ready.");
+        List<Ticket> tickets = new ArrayList<>();
+    	Content html = views.html.tickets.list.render(tickets);
         assertEquals("text/html", html.contentType());
         assertTrue(html.body().contains("Your new application is ready."));
     }
-
-
 }
