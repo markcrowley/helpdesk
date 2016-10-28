@@ -90,7 +90,6 @@ public class Ticket {
 	 */
 	public List<ValidationError> validate() {
 		List<ValidationError> errors = new ArrayList<>();
-		Logger.debug("**Validate**");
 		if (null == id || 0 >= id.longValue()) {
 			errors.add(new ValidationError("id", "Id must be a positive number"));
 		}
