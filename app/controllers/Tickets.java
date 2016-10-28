@@ -25,8 +25,8 @@ import views.html.tickets.details;
  */
 public class Tickets extends Controller {
 
-	@Inject
-	FormFactory formFactory;
+	// @Inject
+	// FormFactory formFactory;
 
 	public Result list() {
 		List<Ticket> tickets = Ticket.findAll();
@@ -34,7 +34,8 @@ public class Tickets extends Controller {
 	}
 
 	public Result newTicket() {
-		return ok(details.render(formFactory.form(Ticket.class)));
+		Form<Ticket> ticketForm = Form.form(Ticket.class)/*.fill(ticket);*/;
+		return ok(details.render(ticketForm));
 	}
 
 	public Result details(Long id) {
@@ -42,14 +43,14 @@ public class Tickets extends Controller {
 		if (null == ticket) {
 			return notFound(String.format("Ticket #%d does not exist", id));
 		}
-		Form<Ticket> ticketForm = formFactory.form(Ticket.class);
+		Form<Ticket> ticketForm = Form.form(Ticket.class).fill(ticket);
 		ticketForm.fill(ticket);
 		return ok(details.render(ticketForm));
 	}
 
 	public Result save() {
-	    
-		Form<Ticket> boundForm = formFactory.form(Ticket.class).bindFromRequest();
+		Form<Ticket> boundForm = Form.form(Ticket.class).bindFromRequest();
+		// Form<Ticket> boundForm = formFactory.form(Ticket.class).bindFromRequest();
 		if (boundForm.hasErrors()) {
 			flash("error", "Please correct errors below");
 			return badRequest(details.render(boundForm));
