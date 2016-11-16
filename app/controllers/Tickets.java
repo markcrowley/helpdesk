@@ -27,12 +27,12 @@ import views.html.tickets.details;
 @With(CatchAction.class)
 public class Tickets extends Controller {
 
-	 @Inject
-	 FormFactory formFactory;
-	
+	@Inject
+	FormFactory formFactory;
+
 	public Result index() {
 		return redirect(routes.Tickets.list(0));
-		}
+	}
 
 	public Result list(Integer page) {
 		List<Ticket> tickets = Ticket.findAll();
