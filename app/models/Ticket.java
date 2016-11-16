@@ -4,6 +4,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import play.data.validation.Constraints;
@@ -36,9 +37,10 @@ public class Ticket {
 	public String description;
 
 	public String requester;
+	
+	public List<Category> categories = new LinkedList<Category>();
 
 	public Ticket() {
-
 	}
 
 	public Ticket(Long id, String description, String requester) {
