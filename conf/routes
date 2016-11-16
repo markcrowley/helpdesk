@@ -3,7 +3,8 @@
 # ~~~~
 
 # Tickets
-GET 	/tickets/ 					controllers.Tickets.list()
+GET		/							controllers.Tickets.index()
+GET 	/tickets 					controllers.Tickets.list(page: Integer ?=1)
 GET 	/tickets/new 				controllers.Tickets.newTicket()
 GET 	/tickets/:id 				controllers.Tickets.details(id: Long)
 POST 	/tickets/ 					controllers.Tickets.save()

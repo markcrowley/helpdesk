@@ -13,6 +13,7 @@ import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.With;
 import views.html.tickets.list;
 import views.html.tickets.details;
 
@@ -23,18 +24,23 @@ import views.html.tickets.details;
  *
  * @author Mark Crowley
  */
+@With(CatchAction.class)
 public class Tickets extends Controller {
 
-	// @Inject
-	// FormFactory formFactory;
+	 @Inject
+	 FormFactory formFactory;
+	
+	public Result index() {
+		return redirect(routes.Tickets.list(0));
+		}
 
-	public Result list() {
+	public Result list(Integer page) {
 		List<Ticket> tickets = Ticket.findAll();
 		return ok(list.render(tickets));
 	}
 
 	public Result newTicket() {
-		Form<Ticket> ticketForm = Form.form(Ticket.class)/*.fill(ticket);*/;
+		Form<Ticket> ticketForm = formFactory.form(Ticket.class);
 		return ok(details.render(ticketForm));
 	}
 
@@ -43,14 +49,13 @@ public class Tickets extends Controller {
 		if (null == ticket) {
 			return notFound(String.format("Ticket #%d does not exist", id));
 		}
-		Form<Ticket> ticketForm = Form.form(Ticket.class).fill(ticket);
+		Form<Ticket> ticketForm = formFactory.form(Ticket.class).fill(ticket);
 		ticketForm.fill(ticket);
 		return ok(details.render(ticketForm));
 	}
 
 	public Result save() {
-		Form<Ticket> boundForm = Form.form(Ticket.class).bindFromRequest();
-		// Form<Ticket> boundForm = formFactory.form(Ticket.class).bindFromRequest();
+		Form<Ticket> boundForm = formFactory.form(Ticket.class).bindFromRequest();
 		if (boundForm.hasErrors()) {
 			flash("error", "Please correct errors below");
 			return badRequest(details.render(boundForm));
@@ -58,7 +63,7 @@ public class Tickets extends Controller {
 			Ticket ticket = boundForm.get();
 			ticket.save();
 			flash("success", "Ticket created: " + ticket);
-			return redirect(routes.Tickets.list());
+			return redirect(routes.Tickets.list(0));
 		}
 	}
 
@@ -68,6 +73,6 @@ public class Tickets extends Controller {
 			return notFound(String.format("Ticket #%d does not exists", id));
 		}
 		Ticket.remove(ticket);
-		return redirect(routes.Tickets.list());
+		return redirect(routes.Tickets.list(0));
 	}
 }
