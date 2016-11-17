@@ -26,6 +26,11 @@
 				label = "Requester",
 				placeholder = "Requester",
 		    	help = "Please enter the requester. (required)")
+  			@checkboxes(ticketForm("categories"),
+                label = "Categories",
+                checkboxMap = categories,
+                help = "Check zero or more categories. (optional)")
+		    
 		    <div class="form-group">
 		      <div class="col-sm-offset-2 col-sm-10">
 		        <button id="submit" type="submit" value="Submit" class="btn btn-primary">Submit</button>
