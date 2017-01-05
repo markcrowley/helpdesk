@@ -62,7 +62,7 @@ public class Tickets extends Controller {
 		} else {
 			Ticket ticket = boundForm.get();
 			ticket.save();
-			flash("success", "Ticket created: " + ticket);
+			flash("success", "Ticket saved: " + ticket);
 			return redirect(routes.Tickets.list(0));
 		}
 	}
